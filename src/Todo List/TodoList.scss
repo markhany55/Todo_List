@@ -1,0 +1,51 @@
+p {
+  text-align: center;
+  font-size: 38px;
+  font-weight: bold;
+  color: white;
+}
+table {
+  width: 100%;
+  border-spacing: inherit;
+  background-color: white;
+  text-align: center;
+  tr {
+    td {
+      border: 1px solid;
+    }
+    .age {
+      width: 226px;
+      background-color: #95d1cc;
+    }
+    .name {
+      background-color: #95d1cc;
+    }
+    .action {
+      background-color: #95d1cc;
+    }
+
+    .delete {
+      cursor: pointer;
+      background-color: #f6f2d4;
+    }
+  }
+}
+form {
+  width: 100%;
+  margin-top: -3px;
+  :first-of-type {
+    width: 360px;
+    height: 30px;
+    background-color: #f6f2d4;
+  }
+  :nth-child(2) {
+    width: 222px;
+    height: 30px;
+    background-color: #f6f2d4;
+  }
+  :nth-child(3) {
+    width: 239px;
+    background-color: #f6f2d4;
+    height: 35px;
+  }
+}
