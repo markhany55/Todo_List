@@ -16,6 +16,8 @@ body {
   justify-content: center;
   align-content: center;
   align-items: center;
-  height: 500px;
   background-color: #22577e;
+}
+#root {
+  width: 100%;
 }
