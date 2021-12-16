@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Fragment } from "react";
+import { useFormik } from "formik";
 import './TodoList.scss'
 const TodoList =()=>{
     const [data,setdata]=useState([
@@ -7,29 +8,24 @@ const TodoList =()=>{
         {id:2,name:"Ahmed",age:26},
         {id:3,name:"Mohamed",age:27}
     ])
-    // add items
-    const [newdata,setnewdata]=useState({})
-const Handlename =(e)=>{
+    // add data
 
-setnewdata(() => ({ ...newdata, name: e.target.value}))
-}
-const Handleage =(e)=>{
-    
-    setnewdata(() => ({ ...newdata, age: e.target.value}))
-}
-const Handeladd =(e)=>{
-    e.preventDefault()
-    setdata(() => ([ ...data,newdata]))
-    localStorage.setItem("key",[data.name])
-}
+const formik=useFormik({
+    initialValues:{
+        name:'',
+        age:''
+    },
+    onSubmit:values=>{
+setdata([...data,{name:values.name,age:values.age}])        
+    }
+})
 // deleteitems
-const HandelDelete =(name)=>{
+const HandelDelete =(index)=>{
     const finaldata=[...data]
-    const Delete=data.findIndex((e)=>{return e.name===name})
+    const Delete=data.findIndex((e,id)=>{return id===index})
     finaldata.splice(Delete,1)
     setdata(finaldata)
 }
-// local storage
 return(
     <Fragment>
             <p>Todo List</p>
@@ -39,21 +35,29 @@ return(
     <td className="age">Age</td>
     <td className="action">Action</td>
   </tr>
-        {data.map((ele)=>{
+        {data.map((ele,id)=>{
         return(
-            <tr key={Math.random()}>
+            <tr key={id}>
 <td>{ele.name}</td>
 <td>{ele.age}</td>
-<td className="delete" onClick={()=>{HandelDelete(ele.name)}}>&times;</td>
+<td className="delete" onClick={()=>{HandelDelete(id)}}>&times;</td>
             </tr>
         )
-    })}
+})}
+
+         <tr>
+
+             <td colSpan="3">
+<form onSubmit={formik.handleSubmit}>
+
+                    <input className="first" type="text" placeholder="Add Name" id="name" onChange={formik.handleChange}/>
+                <input className="first" type="number" placeholder="Add Age" id="age"onChange={formik.handleChange}/>
+                <button className="first" type="submit" >Add</button>
+</form>
+             </td>
+
+         </tr>
             </table>
-            <form onSubmit={Handeladd}>
-                <input type="text" placeholder="Add Name" id="name" onChange={Handlename}/>
-                <input type="number" placeholder="Add Age" id="age"onChange={Handleage}/>
-                <input type="submit" value="Add"/>
-            </form>
         </Fragment>
     )
 }
